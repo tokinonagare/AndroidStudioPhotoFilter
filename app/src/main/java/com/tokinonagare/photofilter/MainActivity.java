@@ -2,9 +2,10 @@ package com.tokinonagare.photofilter;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -26,19 +27,21 @@ public class MainActivity extends AppCompatActivity {
         //http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22
         //The third answer would solve it.
 
-        /*
+
         tokinonagareFace = ResourcesCompat.getDrawable(getResources(), R.drawable.avatar, null);
         bitmapImage = ((BitmapDrawable) tokinonagareFace).getBitmap();
         Bitmap newPhoto = invertImage(bitmapImage);
         tokinonagareImageView.setImageBitmap(newPhoto);
-        */
 
-        Drawable[] layers = new Drawable[2];
-        layers[0] = ResourcesCompat.getDrawable(getResources(), R.drawable.avatar, null);
-        layers[1] = ResourcesCompat.getDrawable(getResources(), R.drawable.dirty, null);
-        LayerDrawable layerDrawable = new LayerDrawable(layers);
-        tokinonagareImageView.setImageDrawable(layerDrawable);
 
+//        Drawable[] layers = new Drawable[2];
+//        layers[0] = ResourcesCompat.getDrawable(getResources(), R.drawable.avatar, null);
+//        layers[1] = ResourcesCompat.getDrawable(getResources(), R.drawable.dirty, null);
+//        LayerDrawable layerDrawable = new LayerDrawable(layers);
+//        tokinonagareImageView.setImageDrawable(layerDrawable);
+
+        //Save the image to the users device
+        MediaStore.Images.Media.insertImage(getContentResolver(), newPhoto, "title", "description");
 
     }
 
